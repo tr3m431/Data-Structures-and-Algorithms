@@ -35,8 +35,12 @@ class Array:
                 for i in range(len(defaultVal), self.size):
                     self.items.append(None)
 
-                if not all(isinstance(elem, self.dataType) for elem in self.items):
-                    raise Exception('Array contains elements not of the specified data type')
+                for elem in self.items:
+                    if type(elem) != self.dataType and elem != None:
+                        raise Exception('Array contains elements not of the specified data type')
+
+                # if not all(isinstance(elem, self.dataType or None) for elem in self.items):
+                #     raise Exception('Array contains elements not of the specified data type')
 
             else:
                 # throw error if there are too many elements
@@ -44,8 +48,22 @@ class Array:
 
     def insert(self, index, element):
         # check if index is within array size (between 0 and size - 1)
-        #
-        return None
+        if index not in range(self.size):
+            raise IndexError('Specified index is not available in the array')
+
+        # check for empty space within the array
+        if None not in self.items:
+            raise Exception('Array is currently full')
+
+        # check that the position is unoccupied
+        if self.items[index] != None:
+            raise Exception('Specified position within array is currently occupied')
+
+        # check if new element is of the correct data type
+        if type(element) != self.dataType:
+            raise Exception('Array cannot contain elements not of the specified data type')
+
+        self.items[index] = element
 
     # return length of the array
     lengthUsed = lambda self : sum([1 for elem in self.items if elem != None])
@@ -59,7 +77,7 @@ class Array:
 # tests
 if __name__ == "__main__":
     # test array
-    newArr = Array(int, 5, [num for num in range(5)])
+    newArr = Array(int, 5, [num for num in range(4)])
 
     # declare new array with proper number of elements using all parameters
     # newArr = Array(int, 5, [i for i in range(5)]) -> GOOD
@@ -75,6 +93,9 @@ if __name__ == "__main__":
 
     # declare a int array with no size or default values
     # newArr = Array(int, None, None) -> GOOD (throws custom error)
+
+    # insert 4 as the final element of the array
+    newArr.insert(4, 4)
 
     # should return 5 (or number of elements)
     print(newArr.lengthUsed())
