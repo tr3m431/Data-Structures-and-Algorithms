@@ -27,9 +27,10 @@ class Array:
                 # throw error if there are too many elements
                 raise Exception('Elements are more than the size specified')
 
-    def length(self):
-        return sum([1 for elem in self.items if elem != None])
+    # return length of the array
+    length = lambda self : sum([1 for elem in self.items if elem != None])
 
+    # print all elements in the array
     def printAll(self):
         print(self.items)
 
