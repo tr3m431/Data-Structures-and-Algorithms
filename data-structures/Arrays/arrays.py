@@ -16,17 +16,36 @@ class Array:
         if(defaultVal == None):
             self.items = [defaultVal for i in range(size)]
         else:
+            # otherwise fill items arrya with default values
             if len(defaultVal) <= size:
                 for j in range(len(defaultVal)):
-                    if(defaultVal[j]):
+                    if(defaultVal[j] != None):
                         self.items.append(defaultVal[j])
                 for i in range(len(defaultVal), size):
                     self.items.append(None)
             else:
+                # throw error if there are too many elements
                 raise Exception('Elements are more than the size specified')
+
+    def length(self):
+        return sum([1 for elem in self.items if elem != None])
+
+    def printAll(self):
+        print(self.items)
 
 # tests
 if __name__ == "__main__":
+    # declare new array with proper number of elements
     newArr = Array(5, [i for i in range(5)])
+
+    # declare new array with improper number of elements
+    # newArr = Array(5, [i for i in range(6)])
+
+    # should return 5 (or number of elements)
+    print(newArr.length())
+
+    # print all elements in the array
+    newArr.printAll()
+
 
     print("\nCode executed successfully\n")
