@@ -55,15 +55,17 @@ class Array:
         if None not in self.items:
             raise Exception('Array is currently full')
 
-        # check that the position is unoccupied
-        if self.items[index] != None:
-            raise Exception('Specified position within array is currently occupied')
-
         # check if new element is of the correct data type
         if type(element) != self.dataType:
             raise Exception('Array cannot contain elements not of the specified data type')
 
-        self.items[index] = element
+        if (self.lengthUsed() < self.size):
+            for i in range(self.lengthUsed(), index, -1):
+                self.items[i] = self.items[i - 1]
+            self.items[index] = element
+
+        else:
+            raise IndexError('Element idex is out of range')
 
     # return length of the array
     lengthUsed = lambda self : sum([1 for elem in self.items if elem != None])
