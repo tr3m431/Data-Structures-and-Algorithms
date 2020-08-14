@@ -82,6 +82,20 @@ class Array:
             else:
                 continue
 
+    # search specified element using a linear search algorithm and return the index
+    # raise an error if the element isn't in the array
+    def search(self, element):
+        # check if the element is in the array
+        if element not in self.items:
+            raise Exception('Element not contained in the array')
+
+        # use a linear sech to find the element and return the index
+        for index in range(self.lengthUsed()):
+            if self.items[index] == element:
+                return index
+            else:
+                continue
+
     # return length of the array
     lengthUsed = lambda self : sum([1 for elem in self.items if elem != None])
 
@@ -123,5 +137,7 @@ if __name__ == "__main__":
     # print all elements in the array
     newArr.printAll()
 
+    # search and print the fourth elemnt in the newArr array
+    print('Index of searched element 3: {0}'.format(newArr.search(3)))
 
     print("\nCode executed successfully\n")
