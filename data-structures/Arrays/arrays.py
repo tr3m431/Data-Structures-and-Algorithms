@@ -27,7 +27,7 @@ class Array:
 
         else:
             # otherwise fill items array with default values
-            if len(defaultVal) <= self.size:
+            if self.lengthUsed() <= self.size:
                 for j in range(len(defaultVal)):
                     if(defaultVal[j] != None):
                         self.items.append(defaultVal[j])
@@ -46,6 +46,7 @@ class Array:
                 # throw error if there are too many elements
                 raise Exception('Elements are more than the size specified')
 
+    # insert an element and increment the index of each element by 1
     def insert(self, index, element):
         # check if index is within array size (between 0 and size - 1)
         if index not in range(self.size):
@@ -59,6 +60,7 @@ class Array:
         if type(element) != self.dataType:
             raise Exception('Array cannot contain elements not of the specified data type')
 
+        # iterate through the array, insert, and move remaining elements
         if (self.lengthUsed() < self.size):
             for i in range(self.lengthUsed(), index, -1):
                 self.items[i] = self.items[i - 1]
@@ -66,6 +68,19 @@ class Array:
 
         else:
             raise IndexError('Element idex is out of range')
+
+    # check if element is in the array, set to null if so, raise error if not
+    def delete(self, element):
+        # check if element is in the array raise error if not...
+        if element not in self.items:
+            raise Exception('Element not contained in array')
+
+        # set to null if so
+        for index in range(self.lengthUsed()):
+            if self.items[index] == element:
+                self.items[index] = None
+            else:
+                continue
 
     # return length of the array
     lengthUsed = lambda self : sum([1 for elem in self.items if elem != None])
@@ -99,7 +114,10 @@ if __name__ == "__main__":
     # insert 4 as the final element of the array
     newArr.insert(4, 4)
 
-    # should return 5 (or number of elements)
+    # delete the newly inserted element: 4
+    newArr.delete(4)
+
+    # should return 4 (or number of elements)
     print(newArr.lengthUsed())
 
     # print all elements in the array
