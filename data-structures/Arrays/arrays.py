@@ -12,6 +12,7 @@ class Array:
         self.size = size
         self.items = []
         self.dataType = dataType
+        self.notInArrayMSG = 'Element not contained in array'
 
         # check that size and defaultVal aren't None
         if size == None and defaultVal == None:
@@ -67,13 +68,14 @@ class Array:
             self.items[index] = element
 
         else:
-            raise IndexError('Element idex is out of range')
+            raise IndexError('Element index is out of range')
 
     # check if element is in the array, set to null if so, raise error if not
+    # looks for first instance of the original element
     def delete(self, element):
         # check if element is in the array raise error if not...
         if element not in self.items:
-            raise Exception('Element not contained in array')
+            raise Exception(self.notInArrayMSG)
 
         # set to null if so
         for index in range(self.lengthUsed()):
@@ -84,15 +86,35 @@ class Array:
 
     # search specified element using a linear search algorithm and return the index
     # raise an error if the element isn't in the array
+    # looks for first instance of the original element
     def search(self, element):
         # check if the element is in the array
         if element not in self.items:
-            raise Exception('Element not contained in the array')
+            raise Exception(self.notInArrayMSG)
 
         # use a linear sech to find the element and return the index
         for index in range(self.lengthUsed()):
             if self.items[index] == element:
                 return index
+            else:
+                continue
+
+    # check if element is in the array and if the new element is of the correct data type
+    # locate and replace the original element with the new element
+    # looks for first instance of the original element
+    def update(self, oldElement, newElement):
+        # check if new element is of the correct data data type
+        if not isinstance(newElement, self.dataType):
+            raise Exception('New element is not of the specified data type')
+
+        # check if the element to be replaced is in the array
+        if oldElement not in self.items:
+            raise Exception(self.notInArrayMSG)
+
+        # use a linear search to find and replace the original element
+        for index in range(self.lengthUsed()):
+            if self.items[index] == oldElement:
+                self.items[index] = newElement
             else:
                 continue
 
@@ -130,6 +152,9 @@ if __name__ == "__main__":
 
     # delete the newly inserted element: 4
     newArr.delete(4)
+
+    # update the first element of the array, 0, to 5
+    newArr.update(0, 5)
 
     # should return 4 (or number of elements)
     print(newArr.lengthUsed())
