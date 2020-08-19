@@ -67,9 +67,6 @@ class Array:
                 self.items[i] = self.items[i - 1]
             self.items[index] = element
 
-        else:
-            raise IndexError('Element index is out of range')
-
     # check if element is in the array, set to null if so, raise error if not
     # looks for first instance of the original element
     def delete(self, element):

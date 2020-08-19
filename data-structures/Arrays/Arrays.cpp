@@ -3,16 +3,16 @@
 
 int main(){
   // fixed size array tests
-  Array<std::string, 2> hi;
+  Array<int, 2> hi;
 
-  hi[0] = "Hello, ";
-  hi[1] = "world!";
+  hi[0] = 1;
+  hi[1] = 2;
 
-  for (int i = 0; i < hi.Size(); i++){
-    std::cout<< hi[i];
-  }
+  for (int i = 0; i < hi.size(); i++)
+    std::cout<< hi[i] << std::endl;
 
-  std::cout<< std::endl;
+
+  std::cout<< hi.data() << std::endl;
 
   // dynamically sized array tests
 
